@@ -57,7 +57,7 @@ select
 from
     hospitalmanagment.patients
 where
-    date_of_birth > 2000;
+    date_of_birth > '2000-12-31';
 
 -- EX 7 : Doctors in specific departments. Retrieve doctors from the "Cardiology" and "Neurology" departments. 
 select
@@ -78,7 +78,35 @@ group by
     specialization;
 
 -- EX 12 : Calculate the average age of the patients.
-SELECT
-    avg(timestampdiff (YEAR, date_of_birth, curdate ())) AS AVG_Age
-FROM
+select
+    avg(timestampdiff(year, date_of_birth, curdate())) as avg_age
+from
     hospitalmanagment.patients;
+    
+
+
+-- EX 17 :  Delete all appointments scheduled before 2024.
+-- Exit from safe mode
+SET sql_safe_updates = 0;
+
+delete from appointments where appointment_date < '2024-01-01';
+
+-- return to safe mode
+SET sql_safe_updates = 1;
+
+
+-- EX 18 : Change the name of the department "Oncology" to "Cancer Treatment". 
+
+update hospitalmanagment.doctors set specialization = 'Cancer Treatment' where specialization = 'Oncology';
+
+-- check
+select * from hospitalmanagment.doctors;
+
+
+-- EX 14 : Total admissions per room. Calculate the total admissions for each room.
+
+select room_id, count(room_id) as  Total_admissions from hospitalmanagment.admissions group by room_id;
+
+select * from hospitalmanagment.admissions;
+
+use hospitalmanagment;
