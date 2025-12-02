@@ -176,24 +176,22 @@ primary key(staff_id)
 -- view staff table
 select * from hospitalmanagment.staff;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+insert into doctors (first_name, last_name, specialization, phone_number, email) 
+VALUES ('Aisha', 'Khan', 'Cardiology', '0622091891', 'aisha.khan@hospital.com'),
+	('Ben', 'Carter', 'Pediatrics', '0622091891', 'ben.carter@hospital.com'),
+	('Sarah', 'Chen', 'Neurology', '0622091891', 'sarah.chen@hospital.com'),
+	('David', 'Patel', 'Orthopedics', '0622091891', 'david.patel@hospital.com'),
+	('Elena', 'Vargas', 'Dermatology', '0622091891', 'elena.vargas@hospital.com'),
+	('Emily', 'Chen', 'Cardiology', '0601234567', 'emily.chen@hospital.com'),
+	('Liam', 'Brown', 'Neurology', '0612345678', 'liam.brown@hospital.com'),
+	('Ava', 'Davis', 'Pediatrics', '0623456789', 'ava.davis@hospital.com'),
+	('Noah', 'Taylor', 'Cardiology', '0634567890', 'noah.taylor@hospital.com'),
+	('Sophia', 'Martin', 'Oncology', '0645678901', 'sophia.martin@hospital.com'),
+	('Ethan', 'Hall', 'Neurology', '0656789012', 'ethan.hall@hospital.com'),
+	('Mia', 'White', 'Dermatology', '0667890123', 'mia.white@hospital.com'),
+	('Lucas', 'Walker', 'Cardiology', '0678901234', 'lucas.walker@hospital.com'),
+	('Isabella', 'Allen', 'Gynecology', '0689012345', 'isabella.allen@hospital.com'),
+	('Mason', 'Scott', 'Neurology', '0690123456', 'mason.scott@hospital.com');
+    
+    
+select * from hospitalmanagment.doctors;
