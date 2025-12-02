@@ -76,6 +76,8 @@ from
     hospitalmanagment.doctors
 group by
     specialization;
+    
+    select * from departments;
 
 -- EX 12 : Calculate the average age of the patients.
 select
@@ -108,5 +110,47 @@ select * from hospitalmanagment.doctors;
 select room_id, count(room_id) as  Total_admissions from hospitalmanagment.admissions group by room_id;
 
 select * from hospitalmanagment.admissions;
+
+
+
+-- EX 15 :  Check for patients without email. Retrieve all patients whose email field is empty.
+
+select * from hospitalmanagment.patients;
+
+insert into hospitalmanagment.patients (
+     first_name, last_name, gender, date_of_birth, phone_number, email, address
+) values
+( 'alex', 'vdrissi', 'male', '1975-03-22', '0698765432', null, 'rue de la liberte, casablanca');
+
+select * from hospitalmanagment.patients where email is null;
+
+
+-- EX 13 Last appointment Find the date and time of the last recorded appointment.
+select * from  hospitalmanagment.appointments order by appointment_date and appointment_time limit 1;
+
+
+-- EX 10 Total number of appointments. Count the total number of appointments recorded.
+select count(appointment_id) from hospitalmanagment.appointments;
+
+-- EX 9 Naming patient age categories Add a column categorizing patients as "Child", "Adult", or "Senior" according to their age. 
+
+select
+    *,
+    timestampdiff(year, date_of_birth, curdate()) as age,
+    case
+        when timestampdiff(year, date_of_birth, curdate()) < 18 then 'child'
+        when timestampdiff(year, date_of_birth, curdate()) between 18 and 64 then 'adult'
+        when timestampdiff(year, date_of_birth, curdate()) >= 65 then 'senior'
+    end as age_category
+from
+    patients;
+        
+select * from hospitalmanagment.patients;
+
+insert into hospitalmanagment.patients (first_name, last_name, gender, date_of_birth, phone_number, email, address) values
+    ('yasmine', 'kennis', 'female', '2010-04-12', '0612345678', 'yasmine.bennis@gmail.com', 'rue 20 août, casablanca'),
+    ('said', 'walid', 'male', '2000-04-12', '0612345678', 'said.walid@gmail.com', 'rue 20 août, rabat');
+
+
 
 use hospitalmanagment;
