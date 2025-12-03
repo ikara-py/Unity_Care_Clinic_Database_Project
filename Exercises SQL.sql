@@ -169,6 +169,23 @@ insert into hospitalmanagment.patients (first_name, last_name, gender, date_of_b
     ('yasmine', 'kennis', 'female', '2010-04-12', '0612345678', 'yasmine.bennis@gmail.com', 'rue 20 août, casablanca'),
     ('said', 'walid', 'male', '2000-04-12', '0612345678', 'said.walid@gmail.com', 'rue 20 août, rabat');
 
+-- EX 19 : Patients by sex with at least 2 entries. List the genders having at least two patients. 
+
+select gender , count(gender) as count from hospitalmanagment.patients group by gender having count >= 2;
+
+
+
+-- EX 20 : Active Admissions Create a view listing all current admissions. 
+create view active_dmissions as select * from admissions where discharge_date is null;
+
+select * from active_dmissions;
+
+
+
+
+
+
+
 
 
 use hospitalmanagment;
