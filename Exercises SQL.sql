@@ -229,6 +229,12 @@ from rooms
 inner join admissions on admissions.room_id = rooms.room_id
 inner join patients on patients.patient_id = admissions.patient_id;
 
+-- Performance Optimization:
+-- Use indexes on frequently queried columns (e.g., Doctor ID, Patient ID). 
+
+create index idx_patient on patients(patient_id);
+create index idx_doctor on doctors(doctor_id);
+
 
 
 use hospitalmanagment;
