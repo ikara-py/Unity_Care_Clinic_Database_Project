@@ -68,6 +68,16 @@ where
     specialization = "Cardiology"
     or specialization = "Neurology";
 
+
+-- EX 8 :  Check date ranges. List admissions between December 1st and December 7th, 2024. 
+
+insert into appointments (appointment_date, appointment_time, doctor_id, patient_id, reason) values
+('2024-12-06', '19:00:00', 5, 9, 'follow-up on blood pressure'),
+('2024-12-02', '12:30:00', 2, 9, 'follow-up on blood pressure');
+
+select * from appointments where appointment_date between '2024-12-01' and '2024-12-07';
+
+
 -- EX 11 : Count the number of doctors in each department. 
 select
     specialization,
@@ -85,6 +95,9 @@ select
 from
     hospitalmanagment.patients;
     
+-- EX 16 :  Appointment list with doctor and patient names. Retrieve appointments with doctor and patient names.
+
+
 
 
 -- EX 17 :  Delete all appointments scheduled before 2024.
@@ -92,6 +105,9 @@ from
 SET sql_safe_updates = 0;
 
 delete from appointments where appointment_date < '2024-01-01';
+
+select * from appointments;
+
 
 -- return to safe mode
 SET sql_safe_updates = 1;
@@ -106,8 +122,10 @@ select * from hospitalmanagment.doctors;
 
 
 -- EX 14 : Total admissions per room. Calculate the total admissions for each room.
-
+-- v1
 select room_id, count(room_id) as  Total_admissions from hospitalmanagment.admissions group by room_id;
+-- v2
+select room_id, sum(1) as  Total_admissions from hospitalmanagment.admissions group by room_id;
 
 select * from hospitalmanagment.admissions;
 
@@ -132,17 +150,17 @@ select * from  hospitalmanagment.appointments order by appointment_date and appo
 -- EX 10 Total number of appointments. Count the total number of appointments recorded.
 select count(appointment_id) from hospitalmanagment.appointments;
 
+select * from hospitalmanagment.appointments;
+
 -- EX 9 Naming patient age categories Add a column categorizing patients as "Child", "Adult", or "Senior" according to their age. 
 
-select
-    *,
-    timestampdiff(year, date_of_birth, curdate()) as age,
+select*,
+	timestampdiff(year, date_of_birth, curdate()) as age,
     case
         when timestampdiff(year, date_of_birth, curdate()) < 18 then 'child'
         when timestampdiff(year, date_of_birth, curdate()) between 18 and 64 then 'adult'
         when timestampdiff(year, date_of_birth, curdate()) >= 65 then 'senior'
-    end as age_category
-from
+    end as age_category from
     patients;
         
 select * from hospitalmanagment.patients;
