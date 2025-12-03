@@ -209,6 +209,26 @@ JOIN doctors ON prescriptions.doctor_id = doctors.doctor_id
 JOIN patients ON prescriptions.patient_id = patients.patient_id
 ORDER BY prescriptions.doctor_id;
 
-select * from prescriptions;
+
+
+
+select * from doctors;
+
+
+-- EX 2 : Retrieve the list of appointments with the associated departme
+
+select appointment_id, appointment_date, department_name, reason from appointments
+inner join doctors on appointments.doctor_id = doctors.doctor_id
+inner join departments on doctors.department_id = departments.department_id;
+
+
+-- EX 4 : Retrieve information on admissions and the rooms where patients are placed
+
+select room_number, room_type, admission_date, discharge_date, first_name, last_name
+from rooms
+inner join admissions on admissions.room_id = rooms.room_id
+inner join patients on patients.patient_id = admissions.patient_id;
+
+
 
 use hospitalmanagment;
