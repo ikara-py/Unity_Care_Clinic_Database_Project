@@ -5,7 +5,7 @@ create database hospitalmanagment;
 use hospitalmanagment;
 
 
--- create departments table
+-- 1. DEPARTMENTS
 create table departments (
     department_id int(11) auto_increment,
     department_name varchar(50),
@@ -13,7 +13,6 @@ create table departments (
     primary key (department_id)
 );
 
--- inject departments into the table
 insert into departments (department_name, location) values
 ('cardiology', 'building a, floor 2'),
 ('pediatrics', 'building b, floor 1'),
@@ -23,7 +22,7 @@ insert into departments (department_name, location) values
 ('oncology', 'building c, floor 1'),
 ('gynecology', 'building a, floor 1');
 
--- create medication table
+-- 2. MEDICATIONS
 create table medications (
     medication_id int(11) auto_increment,
     medication_name varchar(100),
@@ -31,7 +30,6 @@ create table medications (
     primary key (medication_id)
 );
 
--- inject medications into the table
 insert into medications (medication_name, dosage) values
 ('paracetamol', '500mg'),
 ('amoxicillin', '250mg'),
@@ -39,7 +37,7 @@ insert into medications (medication_name, dosage) values
 ('lisinopril', '10mg'),
 ('atorvastatin', '20mg');
 
--- create patients table
+-- 3. PATIENTS
 create table patients (
     patient_id int(11) auto_increment,
     first_name varchar(50),
@@ -52,10 +50,7 @@ create table patients (
     primary key (patient_id)
 );
 
--- inject patients into the table 'hospitalmanagment.patients'
-insert into hospitalmanagment.patients (
-    patient_id, first_name, last_name, gender, date_of_birth, phone_number, email, address
-) values
+insert into patients (patient_id, first_name, last_name, gender, date_of_birth, phone_number, email, address) values
 (1, 'yasmine', 'bennis', 'female', '1991-04-12', '0612345678', 'yasmine.bennis@gmail.com', 'rue 20 août, casablanca'),
 (2, 'omar', 'chakir', 'male', '1988-07-03', '0611223344', 'omar.chakir@outlook.ma', 'boulevard mohamed v, rabat'),
 (3, 'sara', 'el amrani', 'female', '1995-11-25', '0655566677', 'sara.amrani@hotmail.com', 'avenue hassan ii, marrakech'),
@@ -67,7 +62,7 @@ insert into hospitalmanagment.patients (
 (9, 'salma', 'zerhouni', 'female', '1989-01-07', '0655577899', 'salma.zerhouni@gmail.com', 'rue laayoune, kenitra'),
 (10, 'ayoub', 'naciri', 'male', '1996-06-19', '0688899900', 'ayoub.naciri@live.fr', 'boulevard tahir ibnou houcine, tetouan');
 
--- create rooms table
+-- 4. ROOMS
 create table rooms (
     room_id int(11) auto_increment,
     room_number varchar(10),
@@ -76,7 +71,6 @@ create table rooms (
     primary key (room_id)
 );
 
--- insert data into rooms table
 insert into rooms (room_number, room_type, availability) values
 ('101a', 'private', 1),
 ('101b', 'private', 0),
@@ -94,7 +88,7 @@ insert into rooms (room_number, room_type, availability) values
 ('403', 'general', 1),
 ('501', 'icu', 0);
 
--- create doctor table
+-- 5. DOCTORS
 create table doctors (
     doctor_id int(11) auto_increment,
     first_name varchar(50),
@@ -107,7 +101,6 @@ create table doctors (
     foreign key (department_id) references departments (department_id)
 );
 
--- inject doctors into the table
 insert into doctors (doctor_id, first_name, last_name, specialization, phone_number, email, department_id) values
 (1, 'aisha', 'khan', 'cardiology', '0622091891', 'aisha.khan@hospital.com', 1),
 (2, 'ben', 'carter', 'pediatrics', '0622091891', 'ben.carter@hospital.com', 2),
@@ -125,7 +118,7 @@ insert into doctors (doctor_id, first_name, last_name, specialization, phone_num
 (14, 'isabella', 'allen', 'gynecology', '0689012345', 'isabella.allen@hospital.com', 7),
 (15, 'mason', 'scott', 'neurology', '0690123456', 'mason.scott@hospital.com', 3);
 
--- create staff table
+-- 6. STAFF
 create table staff (
     staff_id int(11) auto_increment,
     first_name varchar(50),
@@ -138,7 +131,6 @@ create table staff (
     primary key (staff_id)
 );
 
--- inject staff into the table
 insert into staff (staff_id, first_name, last_name, job_title, phone_number, email, department_id) values
 (101, 'fatima', 'zahra', 'head nurse', '0699001122', 'fatima.zahra@hospital.com', 1),
 (102, 'khalid', 'amine', 'nurse', '0688776655', 'khalid.amine@hospital.com', 2),
@@ -149,7 +141,7 @@ insert into staff (staff_id, first_name, last_name, job_title, phone_number, ema
 (107, 'leila', 'benali', 'nurse assistant', '0622110099', 'leila.benali@hospital.com', 1),
 (108, 'tarik', 'alaoui', 'receptionist', '0611009988', 'tarik.alaoui@hospital.com', 5);
 
--- create appointments table
+-- 7. APPOINTMENTS 
 create table appointments (
     appointment_id int(11) auto_increment,
     appointment_date date,
@@ -162,18 +154,17 @@ create table appointments (
     foreign key (patient_id) references patients (patient_id)
 );
 
--- add data to appointments table
 insert into appointments (appointment_date, appointment_time, doctor_id, patient_id, reason) values
-('2025-12-05', '09:00:00', 1, 1, 'annual check-up and routine blood work'),
-('2025-12-05', '10:30:00', 2, 2, 'follow-up for chronic cough'),
-('2025-12-06', '14:00:00', 3, 3, 'initial consultation for knee pain'),
-('2025-12-06', '16:45:00', 4, 4, 'review recent mri results'),
-('2025-12-07', '08:15:00', 5, 5, 'vaccination and travel advice'),
-('2025-12-07', '11:00:00', 6, 6, 'prescription refill and discussion'),
-('2025-12-08', '13:30:00', 7, 7, 'stitch removal post-surgery'),
-('2025-12-09', '09:45:00', 8, 8, 'flu-like symptoms and fever');
+('2025-12-05', '09:00:00', 4, 1, 'persistent knee pain after running'),
+('2025-12-05', '10:30:00', 1, 9, 'follow-up on blood pressure'),
+('2025-12-06', '14:00:00', 5, 2, 'rash appearing on arms'),
+('2025-12-06', '16:45:00', 3, 5, 'migraine consultation'),
+('2025-12-07', '08:15:00', 14, 3, 'annual gynecological exam'),
+('2025-12-07', '11:00:00', 10, 8, 'discussion of biopsy results'),
+('2025-12-08', '13:30:00', 1, 6, 'heart rate irregularity'),
+('2025-12-09', '09:45:00', 12, 7, 'acne treatment review');
 
--- create admissions table
+-- 8. ADMISSIONS
 create table admissions (
     admission_id int(11) auto_increment,
     patient_id int(11),
@@ -185,14 +176,14 @@ create table admissions (
     primary key (admission_id)
 );
 
--- inject admissions into the table
 insert into admissions (patient_id, room_id, admission_date, discharge_date) values
-(1, 2, '2025-11-28', '2025-12-05'),
+(5, 8, '2025-11-28', '2025-12-05'),
 (2, 4, '2025-12-01', null),
-(3, 8, '2025-11-15', '2025-11-20'),
-(4, 1, '2025-12-04', null);
+(9, 1, '2025-11-15', '2025-11-20'),  
+(4, 15, '2025-12-04', null);  
 
--- create prescriptions table
+-- 9. PRESCRIPTIONS
+-- (SCRAMBLED: Completely mixed Patients, Doctors, and Medications)
 create table prescriptions (
     prescription_id int(11) auto_increment,
     patient_id int(11),
@@ -206,11 +197,10 @@ create table prescriptions (
     foreign key (doctor_id) references doctors (doctor_id)
 );
 
--- inject prescriptions into the table
 insert into prescriptions (patient_id, doctor_id, medication_id, prescription_date, dosage_instructions) values
-(1, 1, 4, '2025-12-05', '1 tablet daily'),
-(2, 2, 2, '2025-12-05', '250mg twice a day for 7 days'),
-(3, 3, 1, '2025-12-06', '500mg as needed for pain'),
-(4, 4, 1, '2025-12-06', 'take with food'),
-(5, 5, 3, '2025-12-07', 'increase to 850mg'),
-(6, 6, 5, '2025-12-07', '1 tablet before bed');
+(9, 1, 4, '2025-12-05', '1 tablet daily for BP'),  
+(2, 5, 2, '2025-12-05', '250mg twice a day for infection'),
+(4, 4, 1, '2025-12-06', '500mg as needed for pain'),  
+(1, 3, 5, '2025-12-06', 'take with dinner'),
+(8, 2, 2, '2025-12-07', 'complete the full course'),
+(3, 14, 3, '2025-12-07', '850mg with meals');
