@@ -97,7 +97,20 @@ from
     
 -- EX 16 :  Appointment list with doctor and patient names. Retrieve appointments with doctor and patient names.
 
-
+SELECT
+    doctors.first_name as doctor_first_name,
+    doctors.last_name as doctor_last_name,
+    doctors.specialization,
+    patients.first_name as patient_first_name,
+    patients.last_name as patient_last_name
+FROM
+    appointments
+JOIN
+    doctors ON appointments.doctor_id = doctors.doctor_id
+JOIN
+    patients ON appointments.patient_id = patients.patient_id
+ORDER BY
+    appointments.doctor_id;
 
 
 -- EX 17 :  Delete all appointments scheduled before 2024.
