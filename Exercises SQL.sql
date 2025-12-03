@@ -211,10 +211,6 @@ ORDER BY prescriptions.doctor_id;
 
 
 
-
-select * from doctors;
-
-
 -- EX 2 : Retrieve the list of appointments with the associated departme
 
 select appointment_id, appointment_date, department_name, reason from appointments
@@ -234,6 +230,18 @@ from rooms
 inner join admissions on admissions.room_id = rooms.room_id
 inner join patients on patients.patient_id = admissions.patient_id;
 
+
+
+-- EX 5 : Count the number of patients associated with each department via their admissions. 
+
+select department_name, count(appointments.patient_id) as count from departments
+inner join doctors on doctors.department_id = departments.department_id
+inner join appointments on appointments.doctor_id = doctors.doctor_id
+inner join patients on patients.patient_id = appointments.patient_id
+group by department_name;
+
+
+
 -- Performance Optimization:
 -- Use indexes on frequently queried columns (e.g., Doctor ID, Patient ID). 
 
@@ -241,7 +249,6 @@ create index idx_patient on patients(patient_id);
 create index idx_doctor on doctors(doctor_id);
 
 show indexes from patients;
-
 
 
 use hospitalmanagment;
