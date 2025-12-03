@@ -221,6 +221,11 @@ select appointment_id, appointment_date, department_name, reason from appointmen
 inner join doctors on appointments.doctor_id = doctors.doctor_id
 inner join departments on doctors.department_id = departments.department_id;
 
+-- EX 3 : List the medications prescribed by each doctor. 
+select first_name as dr_first_name, last_name as dr_last_name , medication_name from doctors
+inner join prescriptions on prescriptions.doctor_id = doctors.doctor_id
+inner join medications on medications.medication_id =  prescriptions.medication_id;
+
 
 -- EX 4 : Retrieve information on admissions and the rooms where patients are placed
 
@@ -234,6 +239,8 @@ inner join patients on patients.patient_id = admissions.patient_id;
 
 create index idx_patient on patients(patient_id);
 create index idx_doctor on doctors(doctor_id);
+
+show indexes from patients;
 
 
 
