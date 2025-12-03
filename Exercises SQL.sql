@@ -103,14 +103,10 @@ SELECT
     doctors.specialization,
     patients.first_name as patient_first_name,
     patients.last_name as patient_last_name
-FROM
-    appointments
-JOIN
-    doctors ON appointments.doctor_id = doctors.doctor_id
-JOIN
-    patients ON appointments.patient_id = patients.patient_id
-ORDER BY
-    appointments.doctor_id;
+FROM appointments
+JOIN doctors ON appointments.doctor_id = doctors.doctor_id
+JOIN patients ON appointments.patient_id = patients.patient_id
+ORDER BY appointments.doctor_id;
 
 
 -- EX 17 :  Delete all appointments scheduled before 2024.
@@ -196,9 +192,23 @@ select * from active_dmissions;
 
 
 
+-- --------------------------------------------------------------------------------------------------
 
+-- --------------------- Bonus --------------------- 
 
+-- EX 1 : patients and their treating physicians
 
+SELECT
+    doctors.first_name as doctor_first_name,
+    doctors.last_name as doctor_last_name,
+    doctors.specialization,
+    patients.first_name as patient_first_name,
+    patients.last_name as patient_last_name
+FROM prescriptions
+JOIN doctors ON prescriptions.doctor_id = doctors.doctor_id
+JOIN patients ON prescriptions.patient_id = patients.patient_id
+ORDER BY prescriptions.doctor_id;
 
+select * from prescriptions;
 
 use hospitalmanagment;
